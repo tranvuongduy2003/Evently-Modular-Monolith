@@ -7,9 +7,8 @@
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
-
+    
     <ItemGroup>
-        <ProjectReference Include="..\..\Modules\Events\Evently.Modules.Events.Api\Evently.Modules.Events.Api.csproj"/>
+      <ProjectReference Include="..\..\Modules\Events\Evently.Modules.Events.Infrastructure\Evently.Modules.Events.Infrastructure.csproj" />
     </ItemGroup>
-
 </Project>
