@@ -1,12 +1,12 @@
 {
-  "ConnectionStrings": {
-    "Database": ""
-  },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
+  "Events": {
+    "Outbox": {
+      "IntervalInSeconds": 5,
+      "BatchSize": 50
+    },
+    "Inbox": {
+      "IntervalInSeconds": 5,
+      "BatchSize": 50
     }
-  },
-  "AllowedHosts": "*"
+  }
 }
