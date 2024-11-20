@@ -1,3 +1,4 @@
+using Evently.Common.Infrastructure.Interceptors;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Application.Abstractions.Data;
 using Evently.Modules.Events.Domain.Categories;
@@ -22,7 +23,7 @@ public static class EventsModule
         IConfiguration configuration)
     {
         services.AddEndpoints(AssemblyReference.Assembly);
-        
+
         services.AddInfrastructure(configuration);
 
         return services;
@@ -32,12 +33,13 @@ public static class EventsModule
     {
         string databaseConnectionString = configuration.GetConnectionString("Database");
 
-        services.AddDbContext<EventsDbContext>(options =>
+        services.AddDbContext<EventsDbContext>((sp, options) =>
             options.UseNpgsql(
                     databaseConnectionString,
                     npgsqlOptions => npgsqlOptions
                         .MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Events))
-                .UseSnakeCaseNamingConvention());
+                .UseSnakeCaseNamingConvention()
+                .AddInterceptors(sp.GetRequiredService<PublishDomainEventsInterceptor>()));
 
         services.AddScoped<IEventRepository, EventRepository>();
 
@@ -46,6 +48,5 @@ public static class EventsModule
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ITicketTypeRepository, TicketTypeRepository>();
-        
     }
 }
