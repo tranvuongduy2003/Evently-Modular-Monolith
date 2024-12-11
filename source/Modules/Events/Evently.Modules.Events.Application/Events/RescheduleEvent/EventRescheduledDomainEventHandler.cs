@@ -3,12 +3,11 @@ using Evently.Modules.Events.Domain.Events;
 
 namespace Evently.Modules.Events.Application.Events.RescheduleEvent;
 
-internal sealed class EventRescheduledDomainEventHandler
-    : IDomainEventHandler<EventRescheduledDomainEvent>
+internal sealed class EventRescheduledDomainEventHandler : IDomainEventHandler<EventRescheduledDomainEvent>
 {
     public Task Handle(
         EventRescheduledDomainEvent domainEvent,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         return Task.CompletedTask;
     }
